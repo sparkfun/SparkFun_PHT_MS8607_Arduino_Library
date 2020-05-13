@@ -1,0 +1,77 @@
+#######################################
+# Syntax Coloring Map For MS8607
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+MS8607	KEYWORD1
+MS8607_humidity_i2c_master_mode	KEYWORD1
+MS8607_status	KEYWORD1
+MS8607_humidity_resolution	KEYWORD1
+MS8607_battery_status	KEYWORD1
+MS8607_heater_status	KEYWORD1
+MS8607_pressure_resolution	KEYWORD1
+MS8607_i2c_status_code	KEYWORD1
+
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+isConnected	KEYWORD2
+set_resolution	KEYWORD2
+reset	KEYWORD2
+set_i2c_master_mode	KEYWORD2
+enable_heater	KEYWORD2
+disable_heater	KEYWORD2
+get_heater_status	KEYWORD2
+get_battery_status	KEYWORD2
+read_temperature_pressure_humidity	KEYWORD2
+set_humidity_resolution	KEYWORD2
+set_humidity_i2c_master_mode	KEYWORD2
+get_compensated_humidity	KEYWORD2
+get_dew_point	KEYWORD2
+set_pressure_resolution	KEYWORD2
+getPressure	KEYWORD2
+getTemperature	KEYWORD2
+getHumidity	KEYWORD2
+adjustToSeaLevel	KEYWORD2
+altitudeChange	KEYWORD2
+
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+MS8607_i2c_hold	LITERAL1
+MS8607_i2c_no_hold	LITERAL1
+
+MS8607_status_ok	LITERAL1
+MS8607_status_no_i2c_acknowledge	LITERAL1
+MS8607_status_i2c_transfer_error	LITERAL1
+MS8607_status_crc_error	LITERAL1
+MS8607_status_heater_on_error	LITERAL1
+
+
+MS8607_humidity_resolution_12b	LITERAL1
+MS8607_humidity_resolution_8b	LITERAL1
+MS8607_humidity_resolution_10b	LITERAL1
+MS8607_humidity_resolution_11b	LITERAL1
+
+MS8607_heater_off	LITERAL1
+MS8607_heater_on	LITERAL1
+
+MS8607_pressure_resolution_osr_256	LITERAL1
+MS8607_pressure_resolution_osr_512	LITERAL1
+MS8607_pressure_resolution_osr_1024	LITERAL1
+MS8607_pressure_resolution_osr_2048	LITERAL1
+MS8607_pressure_resolution_osr_4096	LITERAL1
+MS8607_pressure_resolution_osr_8192	LITERAL1
+
+
+MS8607_i2c_status_ok	LITERAL1
+MS8607_i2c_status_err_overflow	LITERAL1
+MS8607_i2c_status_err_timeout	LITERAL1
+
