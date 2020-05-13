@@ -50,6 +50,13 @@
 
 #include "Wire.h"
 
+// Platform specific configurations
+// Define Serial for SparkFun SAMD based boards.
+// You may need to comment these three lines if your SAMD board supports Serial (not SerialUSB)
+#if defined(ARDUINO_ARCH_SAMD)
+#define Serial SerialUSB
+#endif
+
 enum MS8607_humidity_i2c_master_mode
 {
        MS8607_i2c_hold,
@@ -115,7 +122,7 @@ public:
 
        /*
   \brief Check whether MS8607 device is connected
-  
+
   \return bool : status of MS8607
          - true : Device is present
          - false : Device is not acknowledging I2C address
@@ -124,7 +131,7 @@ public:
 
        /*
    \brief Reset the MS8607 device
-   
+
    \return MS8607_status : status of MS8607
           - MS8607_status_ok : I2C transfer completed successfully
           - MS8607_status_i2c_transfer_error : Problem with i2c transfer
@@ -134,7 +141,7 @@ public:
 
        /*
    \brief Enable heater
-   
+
    \return MS8607_status : status of MS8607
           - MS8607_status_ok : I2C transfer completed successfully
           - MS8607_status_i2c_transfer_error : Problem with i2c transfer
@@ -144,7 +151,7 @@ public:
 
        /*
    \brief Disable heater
-   
+
    \return MS8607_status : status of MS8607
           - MS8607_status_ok : I2C transfer completed successfully
           - MS8607_status_i2c_transfer_error : Problem with i2c transfer
@@ -154,11 +161,11 @@ public:
 
        /*
    \brief Get heater status
-   
+
    \param[in] MS8607_heater_status* : Return heater status (above or below 2.5V)
                        - MS8607_heater_off,
                         - MS8607_heater_on
-   
+
    \return MS8607_status : status of MS8607
           - MS8607_status_ok : I2C transfer completed successfully
           - MS8607_status_i2c_transfer_error : Problem with i2c transfer
@@ -168,11 +175,11 @@ public:
 
        /*
    \brief Provide battery status
-   
+
    \param[out] MS8607_battery_status* : Battery status
                          - MS8607_battery_ok,
                          - MS8607_battery_low
-   
+
    \return MS8607_status : status of MS8607
           - MS8607_status_ok : I2C transfer completed successfully
           - MS8607_status_i2c_transfer_error : Problem with i2c transfer
@@ -182,11 +189,11 @@ public:
 
        /*
    \brief Reads the temperature, pressure and relative humidity value.
-   
+
    \param[out] float* : degC temperature value
    \param[out] float* : mbar pressure value
    \param[out] float* : %RH Relative Humidity value
-   
+
    \return MS8607_status : status of MS8607
           - MS8607_status_ok : I2C transfer completed successfully
           - MS8607_status_i2c_transfer_error : Problem with i2c transfer
@@ -200,9 +207,9 @@ public:
 
        /*
    \brief Set humidity ADC resolution.
-   
+
    \param[in] MS8607_humidity_resolution : Resolution requested
-   
+
    \return MS8607_status : status of MS8607
           - MS8607_status_ok : I2C transfer completed successfully
           - MS8607_status_i2c_transfer_error : Problem with i2c transfer
@@ -214,9 +221,9 @@ public:
 
        /*
    \brief Set Humidity sensor ADC resolution.
-   
+
    \param[in] MS8607_i2c_master_mode : I2C mode
-   
+
    \return MS8607_status : status of MS8607
           - MS8607_status_ok
   */
@@ -226,11 +233,11 @@ public:
    \brief Returns result of compensated humidity
           Note : This function shall only be used when the heater is OFF. It
           will return an error otherwise.
-   
+
    \param[in] float - Actual temperature measured (degC)
    \param[in] float - Actual relative humidity measured (%RH)
    \param[out] float *- Compensated humidity (%RH).
-   
+
    \return MS8607_status : status of MS8607
           - MS8607_status_ok : I2C transfer completed successfully
           - MS8607_status_heater_on_error : Cannot compute compensated humidity
@@ -244,11 +251,11 @@ public:
    \brief Returns the computed dew point
            Note : This function shall only be used when the heater is OFF. It
            will return an error otherwise.
-   
+
    \param[in] float - Actual temperature measured (degC)
    \param[in] float - Actual relative humidity measured (%RH)
    \param[out] float *- Dew point temperature (DegC).
-   
+
    \return MS8607_status : status of MS8607
           - MS8607_status_ok : I2C transfer completed successfully
           - MS8607_status_heater_on_error : Cannot compute compensated humidity
@@ -260,9 +267,9 @@ public:
        /******************** Functions from Pressure sensor ********************/
        /*
    \brief Set pressure ADC resolution.
-   
+
    \param[in] MS8607_pressure_resolution : Resolution requested
-   
+
   */
        void set_pressure_resolution(enum MS8607_pressure_resolution res);
 
@@ -277,7 +284,7 @@ private:
 
        /*
    \brief Check whether humidity sensor is connected
-   
+
    \return bool : status of humidity sensor
           - true : Device is present
           - false : Device is not acknowledging I2C address
@@ -286,7 +293,7 @@ private:
 
        /*
    \brief Reset the humidity sensor part
-   
+
    \return MS8607_status : status of MS8607
           - MS8607_status_ok : I2C transfer completed successfully
           - MS8607_status_i2c_transfer_error : Problem with i2c transfer
@@ -296,10 +303,10 @@ private:
 
        /*
    \brief Check CRC
-   
+
    \param[in] uint16_t : variable on which to check CRC
    \param[in] uint8_t : CRC value
-   
+
    \return MS8607_status : status of MS8607
           - MS8607_status_ok : CRC check is OK
           - MS8607_status_crc_error : CRC check error
@@ -308,9 +315,9 @@ private:
 
        /*
    \brief Reads the MS8607 humidity user register.
-   
+
    \param[out] uint8_t* : Storage of user register value
-   
+
    \return MS8607_status : status of MS8607
           - MS8607_status_ok : I2C transfer completed successfully
           - MS8607_status_i2c_transfer_error : Problem with i2c transfer
@@ -321,9 +328,9 @@ private:
        /*
    \brief Writes the MS8607 humidity user register with value
            Will read and keep the unreserved bits of the register
-   
+
    \param[in] uint8_t : Register value to be set.
-   
+
    \return MS8607_status : status of MS8607
           - MS8607_status_ok : I2C transfer completed successfully
           - MS8607_status_i2c_transfer_error : Problem with i2c transfer
@@ -333,9 +340,9 @@ private:
 
        /*
    \brief Set Humidity sensor ADC resolution.
-   
+
    \param[in] MS8607_i2c_master_mode : I2C mode
-   
+
    \return MS8607_status : status of MS8607
           - MS8607_status_ok
   */
@@ -343,9 +350,9 @@ private:
 
        /*
    \brief Reads the relative humidity ADC value
-   
+
    \param[out] uint16_t* : Relative humidity ADC value.
-   
+
    \return MS8607_status : status of MS8607
           - MS8607_status_ok : I2C transfer completed successfully
           - MS8607_status_i2c_transfer_error : Problem with i2c transfer
@@ -356,9 +363,9 @@ private:
 
        /*
    \brief Reads the relative humidity value.
-   
+
    \param[out] float* : %RH Relative Humidity value
-   
+
    \return MS8607_status : status of MS8607
           - MS8607_status_ok : I2C transfer completed successfully
           - MS8607_status_i2c_transfer_error : Problem with i2c transfer
@@ -371,7 +378,7 @@ private:
 
        /*
    \brief Check whether MS8607 pressure sensor is connected
-   
+
    \return bool : status of MS8607
           - true : Device is present
           - false : Device is not acknowledging I2C address
@@ -380,7 +387,7 @@ private:
 
        /*
    \brief Reset the Pressure sensor part
-   
+
    \return MS8607_status : status of MS8607
           - MS8607_status_ok : I2C transfer completed successfully
           - MS8607_status_i2c_transfer_error : Problem with i2c transfer
@@ -390,10 +397,10 @@ private:
 
        /*
    \brief Reads the psensor EEPROM coefficient stored at address provided.
-   
+
    \param[in] uint8_t : Address of coefficient in EEPROM
    \param[out] uint16_t* : Value read in EEPROM
-   
+
    \return MS8607_status : status of MS8607
           - MS8607_status_ok : I2C transfer completed successfully
           - MS8607_status_i2c_transfer_error : Problem with i2c transfer
@@ -405,7 +412,7 @@ private:
 
        /*
    \brief Reads the MS8607 EEPROM coefficients to store them for computation.
-   
+
    \return MS8607_status : status of MS8607
           - MS8607_status_ok : I2C transfer completed successfully
           - MS8607_status_i2c_transfer_error : Problem with i2c transfer
@@ -416,20 +423,20 @@ private:
 
        /*
    \brief CRC check
-   
+
    \param[in] uint16_t *: List of EEPROM coefficients
    \param[in] uint8_t : crc to compare
-   
+
    \return bool : TRUE if CRC is OK, FALSE if KO
   */
        bool psensor_crc_check(uint16_t *n_prom, uint8_t crc);
 
        /*
    \brief Compute temperature and pressure
-   
+
    \param[out] float* : Celsius Degree temperature value
    \param[out] float* : mbar pressure value
-   
+
    \return MS8607_status : status of MS8607
           - MS8607_status_ok : I2C transfer completed successfully
           - MS8607_status_i2c_transfer_error : Problem with i2c transfer
@@ -441,11 +448,11 @@ private:
 
        /*
    \brief Triggers conversion and read ADC value
-   
+
    \param[in] uint8_t : Command used for conversion (will determine
     Temperature vs Pressure and osr)
    \param[out] uint32_t* : ADC value.
-   
+
    \return MS8607_status : status of MS8607
           - MS8607_status_ok : I2C transfer completed successfully
           - MS8607_status_i2c_transfer_error : Problem with i2c transfer
