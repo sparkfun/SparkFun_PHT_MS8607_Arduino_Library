@@ -40,7 +40,7 @@
 
 #include <Wire.h>
 
-#include <SparkFun_PHT_MS8607_Arduino_Library.h>
+#include <SparkFun_PHT_MS8607_Arduino_Library.h> // Click here to get the library: http://librarymanager/All#SparkFun_PHT_MS8607
 
 MS8607 barometricSensor;
 

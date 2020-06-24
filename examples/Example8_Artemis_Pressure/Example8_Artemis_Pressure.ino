@@ -22,7 +22,7 @@
 
 #include <Wire.h>
 
-#include <SparkFun_PHT_MS8607_Arduino_Library.h>
+#include <SparkFun_PHT_MS8607_Arduino_Library.h> // Click here to get the library: http://librarymanager/All#SparkFun_PHT_MS8607
 
 //Define the Artemis TwoWire port for the MS8607
 //See the Wire/Example2_MoreI2CPorts example for more details
