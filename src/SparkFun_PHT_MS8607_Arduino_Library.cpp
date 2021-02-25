@@ -58,7 +58,7 @@ bool MS8607::isConnected(void)
 */
 enum MS8607_status MS8607::reset(void)
 {
-  enum MS8607_status status;
+  enum MS8607_status status = MS8607_status_ok;
 
   status = hsensor_reset();
   if (status != MS8607_status_ok)
@@ -250,7 +250,7 @@ bool MS8607::hsensor_is_connected(void)
 */
 enum MS8607_status MS8607::hsensor_reset(void)
 {
-  enum MS8607_status status;
+  enum MS8607_status status = MS8607_status_ok;
 
   _i2cPort->beginTransmission((uint8_t)MS8607_HSENSOR_ADDR);
   _i2cPort->write((uint8_t)HSENSOR_RESET_COMMAND);
@@ -312,7 +312,7 @@ enum MS8607_status MS8607::hsensor_crc_check(uint16_t value, uint8_t crc)
 */
 enum MS8607_status MS8607::hsensor_read_user_register(uint8_t *value)
 {
-  enum MS8607_status status;
+  enum MS8607_status status = MS8607_status_ok;
   uint8_t i2c_status;
   uint8_t buffer[1];
   buffer[0] = 0;
@@ -689,7 +689,7 @@ void MS8607::set_pressure_resolution(enum MS8607_pressure_resolution res)
 enum MS8607_status MS8607::psensor_read_eeprom_coeff(uint8_t command,
                                                      uint16_t *coeff)
 {
-  enum MS8607_status status;
+  enum MS8607_status status = MS8607_status_ok;
   uint8_t i2c_status;
   uint8_t buffer[2];
   uint8_t i;
@@ -763,7 +763,7 @@ enum MS8607_status MS8607::psensor_read_eeprom(void)
 enum MS8607_status MS8607::psensor_conversion_and_read_adc(uint8_t cmd,
                                                            uint32_t *adc)
 {
-  enum MS8607_status status;
+  enum MS8607_status status = MS8607_status_ok;
   uint8_t i2c_status;
   uint8_t buffer[3];
   uint8_t i;
