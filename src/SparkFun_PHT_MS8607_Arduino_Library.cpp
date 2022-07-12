@@ -337,7 +337,6 @@ enum MS8607_status MS8607::hsensor_write_user_register(uint8_t value)
 {
   uint8_t i2c_status;
   uint8_t reg;
-  uint8_t data[2];
 
   enum MS8607_status status = hsensor_read_user_register(&reg);
   if (status != MS8607_status_ok)
@@ -347,9 +346,6 @@ enum MS8607_status MS8607::hsensor_write_user_register(uint8_t value)
   reg &= HSENSOR_USER_REG_RESERVED_MASK;
   // Set bits from value that are not reserved
   reg |= (value & ~HSENSOR_USER_REG_RESERVED_MASK);
-
-  data[0] = HSENSOR_WRITE_USER_REG_COMMAND;
-  data[1] = reg;
 
   _i2cPort->beginTransmission((uint8_t)MS8607_HSENSOR_ADDR);
   _i2cPort->write(HSENSOR_WRITE_USER_REG_COMMAND);
