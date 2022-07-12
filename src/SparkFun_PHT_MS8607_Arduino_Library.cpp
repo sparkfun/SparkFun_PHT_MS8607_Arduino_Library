@@ -309,7 +309,7 @@ enum MS8607_status MS8607::hsensor_read_user_register(uint8_t *value)
   _i2cPort->write(HSENSOR_READ_USER_REG_COMMAND);
   i2c_status = _i2cPort->endTransmission();
 
-  _i2cPort->requestFrom((uint8_t)MS8607_HSENSOR_ADDR, 1U);
+  _i2cPort->requestFrom((uint8_t)MS8607_HSENSOR_ADDR, (uint8_t)1);
   buffer[0] = _i2cPort->read();
 
   if (i2c_status == i2c_status_err_overflow)
@@ -450,7 +450,7 @@ MS8607::hsensor_humidity_conversion_and_read_adc(uint16_t *adc)
     // delay depending on resolution
     delay(hsensor_conversion_time);
   }
-  _i2cPort->requestFrom((uint8_t)MS8607_HSENSOR_ADDR, 3U);
+  _i2cPort->requestFrom((uint8_t)MS8607_HSENSOR_ADDR, (uint8_t)3);
   for (i = 0; i < 3; i++)
   {
     buffer[i] = _i2cPort->read();
@@ -680,7 +680,7 @@ enum MS8607_status MS8607::psensor_read_eeprom_coeff(uint8_t command,
   _i2cPort->write(command);
   i2c_status = _i2cPort->endTransmission();
 
-  _i2cPort->requestFrom((uint8_t)MS8607_PSENSOR_ADDR, 2U);
+  _i2cPort->requestFrom((uint8_t)MS8607_PSENSOR_ADDR, (uint8_t)2);
   for (i = 0; i < 2; i++)
     buffer[i] = _i2cPort->read();
 
@@ -764,7 +764,7 @@ enum MS8607_status MS8607::psensor_conversion_and_read_adc(uint8_t cmd,
   _i2cPort->write((uint8_t)PSENSOR_READ_ADC);
   i2c_status = _i2cPort->endTransmission();
 
-  _i2cPort->requestFrom((uint8_t)MS8607_PSENSOR_ADDR, 3U);
+  _i2cPort->requestFrom((uint8_t)MS8607_PSENSOR_ADDR, (uint8_t)3);
   for (i = 0; i < 3; i++)
     buffer[i] = _i2cPort->read();
 
