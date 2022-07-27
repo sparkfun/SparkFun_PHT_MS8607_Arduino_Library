@@ -52,9 +52,11 @@
 
 // Platform specific configurations
 // Define Serial for SparkFun SAMD based boards.
-// You may need to comment these three lines if your SAMD board supports Serial (not SerialUSB)
+// You may need to adapt these lines if your SAMD board supports Serial (not SerialUSB)
 #if defined(ARDUINO_ARCH_SAMD)
+#if !defined(ARDUINO_SAMD51_THING_PLUS)
 #define Serial SerialUSB
+#endif
 #endif
 
 // HSENSOR device address
